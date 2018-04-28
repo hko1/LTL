@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
 
     SDL_AddEventWatch(watch, NULL);
     
-    SDL_Surface* Surface = IMG_Load("/home/daniel/coding/LTL/data/z_bg_hubble_35.png");
+    SDL_Surface* Surface = IMG_Load("data/z_bg_hubble_35.png");
     
     glGenTextures(1, &TextureID);
     glBindTexture(GL_TEXTURE_2D, TextureID);
