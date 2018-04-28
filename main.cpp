@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_opengl.h>
+#include <SDL_image.h>
 
 #include <stdlib.h> //rand()
 
@@ -10,7 +11,7 @@ static bool quitting = false;
 static float r = 0.0f;
 static SDL_Window *window = NULL;
 static SDL_GLContext gl_context;
-
+static GLuint TextureID = 0;
 
     void render() {
 
@@ -20,6 +21,30 @@ static SDL_GLContext gl_context;
 
             glClearColor( r, 0.4f, 0.1f, 1.0f );
             glClear( GL_COLOR_BUFFER_BIT );
+            
+glMatrixMode(GL_PROJECTION);
+glPushMatrix();
+glLoadIdentity();
+glMatrixMode(GL_MODELVIEW);
+glPushMatrix();
+glLoadIdentity();
+
+glBindTexture( GL_TEXTURE_2D, TextureID );
+glBegin(GL_QUADS);
+        glTexCoord2f(1.0, 1.0);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+        glTexCoord2f(0.0, 1.0);
+	glVertex3f( 1.0f, -1.0f, 0.0f);
+        glTexCoord2f(1.0, 0.0);
+	glVertex3f( 1.0f,  1.0f, 0.0f);
+        glTexCoord2f(0.0, 0.0);
+	glVertex3f(-1.0f,  1.0f, 0.0f);
+glEnd();
+
+glPopMatrix();
+glMatrixMode(GL_PROJECTION);
+glPopMatrix();
+glMatrixMode(GL_MODELVIEW);
 
         SDL_GL_SwapWindow(window);
 
@@ -43,12 +68,26 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    window = SDL_CreateWindow("title", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 512, 512, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("title", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, SDL_WINDOW_OPENGL);
 
     gl_context = SDL_GL_CreateContext(window);
 
     SDL_AddEventWatch(watch, NULL);
-
+    
+    SDL_Surface* Surface = IMG_Load("/home/daniel/coding/LTL/data/z_bg_hubble_35.png");
+    
+    glGenTextures(1, &TextureID);
+    glBindTexture(GL_TEXTURE_2D, TextureID);
+    int Mode = GL_RGB;
+    if(Surface->format->BytesPerPixel == 4) {
+        Mode = GL_RGBA;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, Mode,
+            Surface->w, Surface->h, 0,
+            Mode, GL_UNSIGNED_BYTE, Surface->pixels);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glEnable(GL_TEXTURE_2D);
 
     while(!quitting) {
 
