@@ -6,3 +6,4 @@ CMakeFiles
 /compile_commands.json
 /*.exe
 /cmake_install.cmake
+Makefile
