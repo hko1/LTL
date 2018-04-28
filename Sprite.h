@@ -24,12 +24,19 @@ public:
     Sprite(const std::string &imagePath);
     virtual ~Sprite();
     
-    void draw();
+    void draw(float x, float y);
+    
+    GLuint width();
+    GLuint height();
+    
+    GLfloat scale();
+    void set_scale(GLfloat scale);
     
 private:
     const std::string imagePath;
     SDL_Surface* surface;
     GLuint glId;
+    GLfloat scale_;
     
     void loadTexture();
 };

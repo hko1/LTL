@@ -15,26 +15,12 @@ static SDL_Window *window = NULL;
 static SDL_GLContext gl_context;
 static int WINDOW_WIDTH = 1280;
 static int WINDOW_HEIGHT = 720;
-static Sprite *background;
+static Sprite *background = NULL;
 
-void pushProjection() {
-    // setup projection matrix
+void orthogonalProjection() {
     glMatrixMode(GL_PROJECTION);
-    glPushMatrix();
     glLoadIdentity();
-    // setup model view matrix
-    glMatrixMode(GL_MODELVIEW);
-    glPushMatrix();
-    glLoadIdentity();
-}
-
-void popProjection() {
-    // reset projection matrix
-    glPopMatrix();
-    glMatrixMode(GL_PROJECTION);
-    // reset model view matrix
-    glPopMatrix();
-    glMatrixMode(GL_MODELVIEW);
+    glOrtho(0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 1.0f);
 }
 
 void render() {
@@ -42,10 +28,13 @@ void render() {
     // clear the window to black
     glClearColor( 0.0f, 0.0f, 0.0f, 0.0f );
     glClear( GL_COLOR_BUFFER_BIT );
-    // draw the background
-    pushProjection();
-    background->draw();
-    popProjection();
+    // activate orthogonal projection.
+    // this is good with sprites.
+    orthogonalProjection();
+    // draw the background in the center of the window
+    background->draw(
+        WINDOW_WIDTH*0.5f,
+        WINDOW_HEIGHT*0.5f);
     SDL_GL_SwapWindow(window);
 }
 
