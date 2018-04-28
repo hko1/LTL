@@ -12,39 +12,41 @@ static float r = 0.0f;
 static SDL_Window *window = NULL;
 static SDL_GLContext gl_context;
 static GLuint TextureID = 0;
+static int width = 1280;
+static int height = 720;
 
     void render() {
 
         SDL_GL_MakeCurrent(window, gl_context);
 
-            r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+            //r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
 
-            glClearColor( r, 0.4f, 0.1f, 1.0f );
+            glClearColor( 1.0f, 1.0f, 1.0f, 1.0f );
             glClear( GL_COLOR_BUFFER_BIT );
             
-glMatrixMode(GL_PROJECTION);
-glPushMatrix();
-glLoadIdentity();
-glMatrixMode(GL_MODELVIEW);
-glPushMatrix();
-glLoadIdentity();
+            glMatrixMode(GL_PROJECTION);
+            glPushMatrix();
+            glLoadIdentity();
+            glMatrixMode(GL_MODELVIEW);
+            glPushMatrix();
+            glLoadIdentity();
 
-glBindTexture( GL_TEXTURE_2D, TextureID );
-glBegin(GL_QUADS);
-        glTexCoord2f(1.0, 1.0);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-        glTexCoord2f(0.0, 1.0);
-	glVertex3f( 1.0f, -1.0f, 0.0f);
-        glTexCoord2f(1.0, 0.0);
-	glVertex3f( 1.0f,  1.0f, 0.0f);
-        glTexCoord2f(0.0, 0.0);
-	glVertex3f(-1.0f,  1.0f, 0.0f);
-glEnd();
+            glBindTexture( GL_TEXTURE_2D, TextureID );
+            glBegin(GL_QUADS);
+                    glTexCoord2f(0.0, 1.0);
+                    glVertex3f(-1.0f, -1.0f, 0.0f);
+                    glTexCoord2f(1.0, 1.0);
+                    glVertex3f( 1.0f, -1.0f, 0.0f);
+                    glTexCoord2f(1.0, 0.0);
+                    glVertex3f( 1.0f,  1.0f, 0.0f);
+                    glTexCoord2f(0.0, 0.0);
+                    glVertex3f(-1.0f,  1.0f, 0.0f);
+            glEnd();
 
-glPopMatrix();
-glMatrixMode(GL_PROJECTION);
-glPopMatrix();
-glMatrixMode(GL_MODELVIEW);
+            glPopMatrix();
+            glMatrixMode(GL_PROJECTION);
+            glPopMatrix();
+            glMatrixMode(GL_MODELVIEW);
 
         SDL_GL_SwapWindow(window);
 
@@ -68,7 +70,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    window = SDL_CreateWindow("title", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 1024, 768, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("title", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_OPENGL);
 
     gl_context = SDL_GL_CreateContext(window);
 
