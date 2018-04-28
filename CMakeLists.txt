@@ -5,7 +5,8 @@ project(ltl)
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/CMakeModules)
 
 find_package(SDL2 REQUIRED)
-include_directories(${SDL2_INCLUDE_DIRS})
+include_directories(${SDL2_INCLUDE_DIR})
+include_directories(/usr/include/SDL)
 
 add_executable(ltl main.cpp)
-target_link_libraries(ltl ${SDL2_LIBRARIES})
+target_link_libraries(ltl ${SDL2_LIBRARY})
