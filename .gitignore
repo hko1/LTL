@@ -1,2 +1,8 @@
 build/
 dist/ 
+nbproject/
+CMakeFiles
+/CMakeCache.txt
+/compile_commands.json
+/*.exe
+/cmake_install.cmake
