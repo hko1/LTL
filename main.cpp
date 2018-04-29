@@ -7,15 +7,17 @@
 
 #include <stdlib.h> //rand()
 #include <string> //rand()
+#include "Ship.h"
+#include "Image.h"
 
-#include "Sprite.h"
 
 static bool quitting = false;
 static SDL_Window *window = NULL;
 static SDL_GLContext gl_context;
 static int WINDOW_WIDTH = 1280;
 static int WINDOW_HEIGHT = 720;
-static Sprite *background = NULL;
+static Image *background = NULL;
+static Ship *ship = NULL;
 
 void orthogonalProjection() {
     glMatrixMode(GL_PROJECTION);
@@ -35,6 +37,7 @@ void render() {
     background->draw(
         WINDOW_WIDTH*0.5f,
         WINDOW_HEIGHT*0.5f);
+    ship->draw();
     SDL_GL_SwapWindow(window);
 }
 
@@ -62,8 +65,8 @@ int main(int argc, char *argv[]) {
     // setup openGL
     glEnable(GL_TEXTURE_2D);
     // Load background sprite
-    background = new Sprite("data/z_bg_hubble_35.png");
-
+    background = new Image ("data/z_bg_hubble_35.png");
+    ship = new Ship ();
     while(!quitting) {
         SDL_Event event;
         while( SDL_PollEvent(&event) ) {

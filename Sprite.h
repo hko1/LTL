@@ -6,39 +6,27 @@
 
 /* 
  * File:   Sprite.h
- * Author: daniel
+ * Author: Bug Buggy
  *
- * Created on April 28, 2018, 11:07 PM
- */
-
+ * Created on 29. April 2018, 00:59
+ */ 
+    
 #ifndef SPRITE_H
 #define SPRITE_H
 
 #include <string>
-
-#include <SDL.h>
-#include <SDL_opengl.h>
+#include "Image.h"
 
 class Sprite {
 public:
     Sprite(const std::string &imagePath);
     virtual ~Sprite();
-    
-    void draw(float x, float y);
-    
-    GLuint width();
-    GLuint height();
-    
-    GLfloat scale();
-    void set_scale(GLfloat scale);
-    
-private:
-    const std::string imagePath;
-    SDL_Surface* surface;
-    GLuint glId;
-    GLfloat scale_;
-    
-    void loadTexture();
+        
+    void draw();
+protected:   
+    float x,y;
+    Image *image;
+
 };
 
 #endif /* SPRITE_H */
