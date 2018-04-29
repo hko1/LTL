@@ -13,6 +13,8 @@
 
 #include "Ship.h"
 Ship::Ship() : Sprite("data/rock_cruiser_3_floor.png") {
+    x = 300;
+    y = 360;
 }
 
 Ship::~Ship() {
