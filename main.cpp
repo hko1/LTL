@@ -34,10 +34,14 @@ void render() {
     // this is good with sprites.
     orthogonalProjection();
     // draw the background in the center of the window
+    glBlendFunc(GL_ONE, GL_ZERO);
     background->draw(
         WINDOW_WIDTH*0.5f,
         WINDOW_HEIGHT*0.5f);
+    // draw sprites
+    glBlendFunc(GL_SRC_ALPHA,GL_ONE_MINUS_SRC_ALPHA); // use additive alpha blending for sprites!
     ship->draw();
+    // refresh window
     SDL_GL_SwapWindow(window);
 }
 
@@ -64,6 +68,7 @@ int main(int argc, char *argv[]) {
     SDL_AddEventWatch(watch, NULL);
     // setup openGL
     glEnable(GL_TEXTURE_2D);
+    glEnable(GL_BLEND);
     // Load background sprite
     background = new Image ("data/z_bg_hubble_35.png");
     ship = new Ship ();

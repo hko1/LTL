@@ -21,7 +21,6 @@ Sprite::Sprite(const std::string &imagePath) {
 }
 void Sprite::draw(){
     image->draw(x,y);
-        
 }
 
 
