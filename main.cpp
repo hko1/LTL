@@ -5,8 +5,9 @@
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 
-#include <stdlib.h> //rand()
-#include <string> //rand()
+#include <stdlib.h>
+#include <string>
+#include <iostream>
 #include "Ship.h"
 #include "Image.h"
 
@@ -46,8 +47,23 @@ void render() {
 }
 
 int SDLCALL watch(void *userdata, SDL_Event* event) {
-    if (event->type == SDL_APP_WILLENTERBACKGROUND) {
-        quitting = true;
+    switch(event->type) {
+        case SDL_APP_WILLENTERBACKGROUND:
+            quitting = true;
+        case SDL_KEYDOWN:
+        switch (event->key.keysym.sym) {
+            case SDLK_LEFT:  std::cout << "left" << std::endl; break;
+            case SDLK_RIGHT: std::cout << "right" << std::endl; break;
+            case SDLK_UP:    std::cout << "up" << std::endl; break;
+            case SDLK_DOWN:  std::cout << "down" << std::endl; break;
+        }
+        case SDL_KEYUP:
+        switch (event->key.keysym.sym) {
+            case SDLK_LEFT:  std::cout << "left up" << std::endl; break;
+            case SDLK_RIGHT: std::cout << "right up" << std::endl; break;
+            case SDLK_UP:    std::cout << "up up" << std::endl; break;
+            case SDLK_DOWN:  std::cout << "down up" << std::endl; break;
+        }
     }
     return 1;
 }
