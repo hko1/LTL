@@ -25,6 +25,9 @@ public:
     virtual ~Image();
     
     void draw(float x, float y);
+    void draw(float x, float y,
+              float tx, float ty,
+              float tw, float th);
     
     GLuint width();
     GLuint height();

@@ -20,12 +20,20 @@
 class Sprite {
 public:
     Sprite(const std::string &imagePath);
+    Sprite(const std::string &imagePath,
+        GLuint numFramesX,
+        GLuint numFramesY);
     virtual ~Sprite();
         
     void draw();
+    void nextFrame();
+
 protected:   
     float x,y;
     Image *image;
+    
+    GLuint numFramesX_, numFramesY_;
+    GLuint frameIndexX_, frameIndexY_;
 
 };
 

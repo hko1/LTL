@@ -82,3 +82,34 @@ void Image::draw(float x, float y) {
             y + h5, 0.0f);
     glEnd();
 }
+
+void Image::draw(float x, float y,
+                 float tx, float ty,
+                 float tw, float th) {
+    glBindTexture(GL_TEXTURE_2D, glId);
+    glBegin(GL_QUADS);
+    float w5 = width()*0.5f;
+    float h5 = height()*0.5f;
+    // vertex 1
+    glTexCoord2f(tx, ty+th);
+    glVertex3f(
+            x - w5,
+            y - h5, 0.0f);
+    // vertex 2
+    glTexCoord2f(tx+tw, ty+th);
+    glVertex3f(
+            x + w5,
+            y - h5, 0.0f);
+    // vertex 3
+    glTexCoord2f(tx+tw, ty);
+    glVertex3f(
+            x + w5,
+            y + h5, 0.0f);
+    // vertex 4
+    glTexCoord2f(tx, ty);
+    glVertex3f(
+            x - w5,
+            y + h5, 0.0f);
+    glEnd();
+}
+
